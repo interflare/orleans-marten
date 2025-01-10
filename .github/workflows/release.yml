@@ -7,17 +7,25 @@ on:
 jobs:
   pack:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+          source-url: https://nuget.pkg.github.com/interflare/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: pack
         run: |
           VERSION=${{ github.ref_name }}
           dotnet pack -c Release -o packages /p Version=${VERSION#v}
+      - name: push
+        run: dotnet nuget push packages/*
 
       - uses: actions/upload-artifact@v4
         with:
@@ -52,9 +60,9 @@ jobs:
           artifactErrorsFailBuild: true
           body: ${{ steps.changelog.outputs.changes }}
 
-#      - name: commit changelog
-#        uses: stefanzweifel/git-auto-commit-action@v4
-#        with:
-#          branch: main
-#          commit_message: 'docs: update changelog for ${{ github.ref_name }} [skip ci]'
-#          file_pattern: CHANGELOG.md
+      - name: commit changelog
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: 'docs: update changelog for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md
