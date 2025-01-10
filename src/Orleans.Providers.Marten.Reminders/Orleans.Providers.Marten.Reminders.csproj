@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <PackageReference Include="Marten" Version="7.35.2" />
+        <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.0.1" />
+    </ItemGroup>
+
+</Project>
