@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: restore
+        run: dotnet restore
+      - name: build
+        run: dotnet build -c Release --no-restore
+
+      - name: unit tests
+        run: find test/unit/ -name '*.csproj' -type f -exec dotnet test --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage" {} \;
+      - name: integration tests
+        run: find test/integration/ -name '*.csproj' -type f -exec dotnet test --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage" {} \;
+
+      - uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: test-results
+          path: '**/*.trx'
+
+  report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+
+    needs: build
+    if: success() || failure()
+
+    steps:
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: test results
+          path: '**/*.trx'
+          reporter: dotnet-trx

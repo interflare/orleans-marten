@@ -28,7 +28,6 @@ public abstract class InMemorySiloHostFixture : IAsyncLifetime
     public virtual Task InitializeAsync()
     {
         var hostBuilder = Host.CreateDefaultBuilder()
-            .ConfigureLogging(builder => builder.SetMinimumLevel(LogLevel.Trace))
             .ConfigureServices(ConfigureServices);
         ConfigureHostBuilder(hostBuilder);
 
