@@ -1,5 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup>
+        <PackageId>Interflare.Orleans.Providers.Marten.Persistence</PackageId>
+        <Title>Interflare Orleans Marten State Persistence Provider</Title>
+        <Description>Orleans storage provider library to store grain state in Marten, a transactional document database library for PostgreSQL</Description>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
         <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.0.1" />

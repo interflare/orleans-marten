@@ -7,10 +7,28 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <NoWarn>$(NoWarn);CS1591;RMG020</NoWarn>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Package defaults -->
+        <Version>0.0.1-alpha1</Version>
+        <Company>Interflare</Company>
+        <PackageIcon>icon.png</PackageIcon>
+        <Copyright>© Interflare. All rights reserved.</Copyright>
+        <PackageTags>orleans;orleans-providers;marten;postgresql</PackageTags>
+        <RepositoryUrl>https://github.com/interflare/orleans-marten</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/interflare/orleans-marten</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/interflare/orleans-marten/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)icon.png" Visible="false" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

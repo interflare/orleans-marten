@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup>
+        <!-- Remove when implemented -->
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
         <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.0.1" />
