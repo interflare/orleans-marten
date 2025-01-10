@@ -15,14 +15,13 @@
 
     <PropertyGroup>
         <!-- Package defaults -->
-        <Version>0.0.1-alpha1</Version>
+        <Version>0.0.0-local</Version>
         <Company>Interflare</Company>
         <PackageIcon>icon.png</PackageIcon>
         <Copyright>© Interflare. All rights reserved.</Copyright>
         <PackageTags>orleans;orleans-providers;marten;postgresql</PackageTags>
         <RepositoryUrl>https://github.com/interflare/orleans-marten</RepositoryUrl>
         <PackageProjectUrl>https://github.com/interflare/orleans-marten</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/interflare/orleans-marten/blob/main/LICENSE</PackageLicenseUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 

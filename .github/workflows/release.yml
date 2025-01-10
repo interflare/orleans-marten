@@ -1,0 +1,60 @@
+name: release
+
+on:
+  push:
+    tags: [ "v*" ]
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: pack
+        run: |
+          VERSION=${{ github.ref_name }}
+          dotnet pack -c Release -o packages /p Version=${VERSION#v}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: packages/*
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: pack
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: packages
+
+      - name: generate changelog
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+
+      - name: create release
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          makeLatest: true
+          allowUpdates: true
+          artifacts: packages/*
+          artifactErrorsFailBuild: true
+          body: ${{ steps.changelog.outputs.changes }}
+
+#      - name: commit changelog
+#        uses: stefanzweifel/git-auto-commit-action@v4
+#        with:
+#          branch: main
+#          commit_message: 'docs: update changelog for ${{ github.ref_name }} [skip ci]'
+#          file_pattern: CHANGELOG.md
