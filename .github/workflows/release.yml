@@ -25,7 +25,7 @@ jobs:
           VERSION=${{ github.ref_name }}
           dotnet pack -c Release -o packages /p Version=${VERSION#v}
       - name: push
-        run: dotnet nuget push packages/*
+        run: dotnet nuget push --skip-duplicate packages/*
 
       - uses: actions/upload-artifact@v4
         with:
