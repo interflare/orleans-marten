@@ -23,7 +23,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
         var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
 
         // Act
         await grain.SetUrl("https://example.com");
@@ -50,7 +50,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
         var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");
@@ -71,7 +71,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
         var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");
@@ -97,7 +97,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
         var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");

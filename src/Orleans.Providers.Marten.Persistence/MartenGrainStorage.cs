@@ -28,7 +28,7 @@ public sealed class MartenGrainStorage : IGrainStorage
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
         ArgumentNullException.ThrowIfNull(grainId);
 
-        var querySession = _store.QuerySession();
+        await using var querySession = _store.QuerySession();
         var documentId = GetDocumentId(stateName, grainId);
         try
         {
@@ -64,7 +64,7 @@ public sealed class MartenGrainStorage : IGrainStorage
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
         ArgumentNullException.ThrowIfNull(grainId);
 
-        var documentSession = _store.LightweightSession();
+        await using var documentSession = _store.LightweightSession();
         var documentId = GetDocumentId(stateName, grainId);
         Guid? documentETag = null;
         try
@@ -112,7 +112,7 @@ public sealed class MartenGrainStorage : IGrainStorage
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
         ArgumentNullException.ThrowIfNull(grainId);
 
-        var documentSession = _store.LightweightSession();
+        await using var documentSession = _store.LightweightSession();
         var documentId = GetDocumentId(stateName, grainId);
         Guid? documentETag = null;
         try
