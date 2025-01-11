@@ -1,5 +1,6 @@
 using Marten.Metadata;
 using Marten.Schema;
+using Orleans.Configuration;
 
 namespace Orleans.Providers.Marten.Persistence.Documents;
 
@@ -12,8 +13,14 @@ public sealed record OrleansState : IVersioned
     /// <summary>
     /// The identifier of the document.
     /// </summary>
-    /// <example><see cref="StateName"/>-<see cref="GrainId"/></example>
+    /// <example><see cref="ServiceId"/>-<see cref="StateName"/>-<see cref="GrainId"/></example>
     public string Id { get; init; } = null!;
+
+    /// <summary>
+    /// The identifier of the service which this state data is stored for.
+    /// </summary>
+    /// <seealso cref="ClusterOptions.ServiceId"/>
+    public string ServiceId { get; init; } = null!;
 
     /// <summary>
     /// The name of the Orleans state.

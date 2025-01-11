@@ -1,4 +1,5 @@
 using Marten.Exceptions;
+using Orleans.Configuration;
 using Orleans.Providers.Marten.Integration.Tests.Infrastructure.Fixtures;
 using Orleans.Providers.Marten.Integration.Tests.TestGrains;
 using Orleans.Providers.Marten.Persistence.Documents;
@@ -29,11 +30,11 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         await grain.SetUrl("https://example.com");
 
         // Assert
-        var document = await documentSession.LoadAsync<OrleansState>($"url-{grain.GetGrainId()}");
+        var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
 
         Assert.NotNull(document);
         Assert.NotNull(document.Data);
-        Assert.Equal($"url-{grain.GetGrainId()}", document.Id);
+        Assert.Equal($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}", document.Id);
         Assert.Equal("url", document.StateName);
         Assert.Equal(grain.GetGrainId().ToString(), document.GrainId);
 
@@ -55,12 +56,12 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         // Act & Assert
         await grain.SetUrl("https://example.com");
 
-        var document = await documentSession.LoadAsync<OrleansState>($"url-{grain.GetGrainId()}");
+        var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.NotNull(document);
 
         await grain.Delete();
 
-        document = await documentSession.LoadAsync<OrleansState>($"url-{grain.GetGrainId()}");
+        document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.Null(document);
     }
 
@@ -76,7 +77,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         // Act & Assert
         await grain.SetUrl("https://example.com");
 
-        var document = await documentSession.LoadAsync<OrleansState>($"url-{grain.GetGrainId()}");
+        var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.NotNull(document);
 
         var documentETag = document.Version.ToString();
@@ -89,7 +90,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         Assert.Equal(documentETag, exception.CurrentEtag);
         Assert.Equal(document.Version.ToString(), exception.StoredEtag);
     }
-    
+
     [Fact]
     public async Task StateConcurrencyDeletion()
     {
@@ -102,7 +103,7 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         // Act & Assert
         await grain.SetUrl("https://example.com");
 
-        var document = await documentSession.LoadAsync<OrleansState>($"url-{grain.GetGrainId()}");
+        var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.NotNull(document);
 
         var documentETag = document.Version.ToString();

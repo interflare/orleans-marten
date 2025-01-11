@@ -1,6 +1,8 @@
 using Marten;
 using Marten.Exceptions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Orleans.Configuration;
 using Orleans.Providers.Marten.Persistence.Common.Extensions;
 using Orleans.Providers.Marten.Persistence.Documents;
 using Orleans.Runtime;
@@ -17,10 +19,14 @@ public sealed class MartenGrainStorage : IGrainStorage
     private readonly ILogger<MartenGrainStorage> _logger;
     private readonly IDocumentStore _store;
 
-    public MartenGrainStorage(ILogger<MartenGrainStorage> logger, IDocumentStore store)
+    private readonly string _serviceId;
+
+    public MartenGrainStorage(ILogger<MartenGrainStorage> logger, IOptions<ClusterOptions> clusterOptions, IDocumentStore store)
     {
         _logger = logger;
         _store = store;
+
+        _serviceId = clusterOptions.Value.ServiceId;
     }
 
     public async Task ReadStateAsync<T>(string stateName, GrainId grainId, IGrainState<T> grainState)
@@ -77,7 +83,7 @@ public sealed class MartenGrainStorage : IGrainStorage
             {
                 _logger.LogTraceDocumentNotFoundWriting(stateName, grainId, grainState.ETag, documentId);
                 exists = false;
-                result = new OrleansState { Id = documentId, GrainId = grainId.ToString(), StateName = stateName };
+                result = new OrleansState { Id = documentId, ServiceId = _serviceId, GrainId = grainId.ToString(), StateName = stateName };
             }
 
             documentETag = result.Version;
@@ -150,5 +156,5 @@ public sealed class MartenGrainStorage : IGrainStorage
         }
     }
 
-    private static string GetDocumentId(string stateName, GrainId grainId) => $"{stateName}-{grainId}";
+    private string GetDocumentId(string stateName, GrainId grainId) => $"{_serviceId}-{stateName}-{grainId}";
 }
