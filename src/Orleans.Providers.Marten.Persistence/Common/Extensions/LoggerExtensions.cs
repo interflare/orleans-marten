@@ -36,7 +36,6 @@ internal static partial class LoggerExtensions
 
     #endregion
 
-
     #region Writing
 
     [LoggerMessage(
@@ -62,7 +61,6 @@ internal static partial class LoggerExtensions
     internal static partial void LogTraceDocumentNotFoundWriting(this ILogger logger, string stateName, GrainId grainId, string? eTag, string documentId);
 
     #endregion
-
 
     #region Clearing
 

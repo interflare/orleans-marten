@@ -28,7 +28,7 @@ public sealed record OrleansState : IVersioned
     /// <summary>
     /// The version of this provider.
     /// </summary>
-    public int ProviderVersion { get; internal init; }
+    public int ProviderVersion { get; init; }
 
     /// <summary>
     /// The version of the document, managed by Marten.
