@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <!-- Remove when implemented -->
-        <IsPackable>false</IsPackable>
+        <PackageId>Interflare.Orleans.Providers.Marten.Clustering</PackageId>
+        <Title>Interflare Orleans Marten Clustering Provider</Title>
+        <Description>Orleans storage provider library to manage silo clustering in Marten, a transactional document database library for PostgreSQL</Description>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
         <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.0.1" />
+        <PackageReference Include="Riok.Mapperly" Version="4.1.1" PrivateAssets="all" />
     </ItemGroup>
 
 </Project>
