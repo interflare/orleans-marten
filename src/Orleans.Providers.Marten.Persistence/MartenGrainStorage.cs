@@ -131,6 +131,7 @@ public sealed class MartenGrainStorage : IGrainStorage
                 _logger.LogTraceDocumentNotFoundClearing(stateName, grainId, grainState.ETag, documentId);
                 grainState.ETag = null;
                 grainState.RecordExists = false;
+                grainState.State = Activator.CreateInstance<T>();
                 return;
             }
 
@@ -142,6 +143,7 @@ public sealed class MartenGrainStorage : IGrainStorage
 
             grainState.ETag = result.Version.ToString();
             grainState.RecordExists = false;
+            grainState.State = Activator.CreateInstance<T>();
 
             _logger.LogTraceCleared(stateName, grainId, grainState.ETag, documentId);
         }
