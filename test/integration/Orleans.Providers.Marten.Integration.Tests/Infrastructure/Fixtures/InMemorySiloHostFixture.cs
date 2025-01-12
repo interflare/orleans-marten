@@ -1,7 +1,6 @@
 using Marten;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Orleans.Providers.Marten.Integration.Tests.Infrastructure.Fixtures;
