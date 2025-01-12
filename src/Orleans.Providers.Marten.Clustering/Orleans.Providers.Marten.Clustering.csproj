@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <PackageId>Interflare.Orleans.Providers.Marten.Clustering</PackageId>
+        <PackageId>Interflare.Orleans.Marten.Clustering</PackageId>
         <Title>Interflare Orleans Marten Clustering Provider</Title>
         <Description>Orleans storage provider library to manage silo clustering in Marten, a transactional document database library for PostgreSQL</Description>
     </PropertyGroup>
