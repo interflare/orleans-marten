@@ -241,8 +241,8 @@ public class MartenClusteringTable : IMembershipTable
         }
     }
 
-    private string GetTableVersionId() => $"{_serviceId}/{_clusterId}";
-    private string GetDocumentId(SiloAddress siloAddress) => $"{_serviceId}/{_clusterId}-{siloAddress.ToParsableString()}";
+    private string GetTableVersionId() => $"{_serviceId}/{_clusterId}".ToLowerInvariant();
+    private string GetDocumentId(SiloAddress siloAddress) => $"{_serviceId}/{_clusterId}-{siloAddress.ToParsableString()}".ToLowerInvariant();
 
     private async Task<MembershipTableData> GetMembershipTableData(IQuerySession session, IEnumerable<OrleansMembership?> memberships)
     {

@@ -159,5 +159,5 @@ public sealed class MartenGrainStorage : IGrainStorage
         }
     }
 
-    private string GetDocumentId(string stateName, GrainId grainId) => $"{_serviceId}-{stateName}-{grainId}";
+    private string GetDocumentId(string stateName, GrainId grainId) => $"{_serviceId}-{stateName}-{grainId}".ToLowerInvariant();
 }

@@ -197,5 +197,5 @@ public class MartenReminderTable : IReminderTable
         await documentSession.SaveChangesAsync();
     }
 
-    private string GetDocumentId(GrainId grainId, string reminderName) => $"{_serviceId}-{grainId}-{reminderName}";
+    private string GetDocumentId(GrainId grainId, string reminderName) => $"{_serviceId}-{grainId}-{reminderName}".ToLowerInvariant();
 }
