@@ -1,12 +1,14 @@
 using Marten.Metadata;
 using Marten.Schema;
 using Orleans.Configuration;
+using Orleans.Storage;
 
 namespace Orleans.Providers.Marten.Persistence.Documents;
 
 /// <summary>
 /// Represents the state data for a grain, as well as some provider metadata.
 /// </summary>
+/// <seealso cref="IGrainState{T}"/>
 [UseOptimisticConcurrency]
 public sealed record OrleansState : IVersioned
 {
@@ -46,7 +48,11 @@ public sealed record OrleansState : IVersioned
     public Guid Version { get; set; }
 
     /// <summary>
-    /// The actual state data, serialized as JSON.
+    /// The actual state data, serialized using the configured <see cref="IGrainStorageSerializer"/>.
     /// </summary>
+    /// <remarks>
+    /// Most of the time, this will be JSON serialized as a string - however the <see cref="IGrainStorageSerializer"/> also allows binary data, which will be stored in a string representation also.
+    /// </remarks>
+    /// <seealso cref="IGrainState{T}"/>
     public string? Data { get; init; }
 }
