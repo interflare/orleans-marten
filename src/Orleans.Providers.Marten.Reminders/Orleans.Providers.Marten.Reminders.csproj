@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <!-- Remove when implemented -->
-        <IsPackable>false</IsPackable>
+        <PackageId>Interflare.Orleans.Marten.Reminders</PackageId>
+        <Title>Interflare Orleans Marten Reminder Provider</Title>
+        <Description>Orleans storage provider library to persist reminders in Marten, a transactional document database library for PostgreSQL</Description>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
-        <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Orleans.Reminders" Version="9.0.1" />
+        <PackageReference Include="Riok.Mapperly" Version="4.1.1" PrivateAssets="all" />
     </ItemGroup>
 
 </Project>
