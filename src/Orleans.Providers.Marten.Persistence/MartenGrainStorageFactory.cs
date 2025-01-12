@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Orleans.Configuration.Overrides;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Orleans.Providers.Marten.Persistence;
@@ -7,5 +9,8 @@ namespace Orleans.Providers.Marten.Persistence;
 public static class MartenGrainStorageFactory
 {
     public static MartenGrainStorage Create(IServiceProvider services, string name)
-        => ActivatorUtilities.CreateInstance<MartenGrainStorage>(services);
+    {
+        var optionsMonitor = services.GetRequiredService<IOptionsMonitor<MartenGrainStorageOptions>>();
+        return ActivatorUtilities.CreateInstance<MartenGrainStorage>(services, optionsMonitor.Get(name), services.GetProviderClusterOptions(name));
+    }
 }

@@ -1,12 +1,14 @@
 // ReSharper disable CheckNamespace - this is the suggested namespace for dependency injection
 
 using Marten;
+using Microsoft.Extensions.Options;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using Orleans.Providers;
 using Orleans.Providers.Marten.Persistence;
 using Orleans.Providers.Marten.Persistence.Documents;
 using Orleans.Runtime.Hosting;
+using Orleans.Storage;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,8 @@ public static class ProviderServicesExtensions
     public static IServiceCollection AddMartenGrainStorage(this IServiceCollection services, string name)
     {
         services.ConfigureMarten(options => options.ConfigurePersistence());
+        services.AddOptions<MartenGrainStorageOptions>(name);
+        services.AddTransient<IPostConfigureOptions<MartenGrainStorageOptions>, DefaultStorageProviderSerializerOptionsConfigurator<MartenGrainStorageOptions>>();
         return services.AddGrainStorage(name, MartenGrainStorageFactory.Create);
     }
 

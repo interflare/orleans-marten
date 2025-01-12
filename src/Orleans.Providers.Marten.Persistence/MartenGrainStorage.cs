@@ -7,7 +7,6 @@ using Orleans.Providers.Marten.Persistence.Common.Extensions;
 using Orleans.Providers.Marten.Persistence.Documents;
 using Orleans.Runtime;
 using Orleans.Storage;
-using System.Text.Json;
 
 namespace Orleans.Providers.Marten.Persistence;
 
@@ -18,13 +17,15 @@ public sealed class MartenGrainStorage : IGrainStorage
 {
     private readonly ILogger<MartenGrainStorage> _logger;
     private readonly IDocumentStore _store;
+    private readonly IGrainStorageSerializer _serializer;
 
     private readonly string _serviceId;
 
-    public MartenGrainStorage(ILogger<MartenGrainStorage> logger, IOptions<ClusterOptions> clusterOptions, IDocumentStore store)
+    public MartenGrainStorage(MartenGrainStorageOptions storageOptions, IOptions<ClusterOptions> clusterOptions, ILogger<MartenGrainStorage> logger, IDocumentStore store)
     {
         _logger = logger;
         _store = store;
+        _serializer = storageOptions.GrainStorageSerializer;
 
         _serviceId = clusterOptions.Value.ServiceId;
     }
@@ -54,7 +55,7 @@ public sealed class MartenGrainStorage : IGrainStorage
                 _logger.LogTraceDocumentEmptyReading(stateName, grainId, grainState.ETag, documentId);
                 grainState.State = Activator.CreateInstance<T>();
             }
-            else grainState.State = JsonSerializer.Deserialize<T>(result.Data) ?? Activator.CreateInstance<T>();
+            else grainState.State = _serializer.Deserialize<T>(BinaryData.FromString(result.Data));
 
             _logger.LogTraceRead(stateName, grainId, grainState.ETag, documentId);
         }
@@ -90,7 +91,7 @@ public sealed class MartenGrainStorage : IGrainStorage
             result = result with
             {
                 ProviderVersion = Constants.ProviderVersion,
-                Data = JsonSerializer.Serialize(grainState.State)
+                Data = _serializer.Serialize(grainState.State).ToString()
             };
 
             if (exists) documentSession.UpdateExpectedVersion(result, Guid.Parse(grainState.ETag));
