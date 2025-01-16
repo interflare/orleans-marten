@@ -44,7 +44,7 @@ public class MartenGatewayListProvider : IGatewayListProvider
             _logger.LogTraceListingGateways(_clusterId);
 
             var members = await querySession.Query<OrleansMembership>()
-                .Where(m => m.ClusterId == _clusterId)
+                .Where(m => m.ServiceId == _serviceId && m.ClusterId == _clusterId)
                 .Where(m => m.Entry.Status == SiloStatus.Active)
                 .Where(m => m.Entry.ProxyPort > 0)
                 .Select(m => m.Entry)
