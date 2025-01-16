@@ -1,5 +1,7 @@
 using Marten;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Orleans.Configuration;
 using Orleans.Messaging;
 using Orleans.Providers.Marten.Clustering.Common.Extensions;
 using Orleans.Providers.Marten.Clustering.Documents;
@@ -13,15 +15,19 @@ namespace Orleans.Providers.Marten.Clustering;
 /// <seealso cref="MartenClusteringTable"/>
 public class MartenGatewayListProvider : IGatewayListProvider
 {
-    private readonly string _clusterId;
     private readonly ILogger<MartenGatewayListProvider> _logger;
     private readonly IDocumentStore _store;
 
-    public MartenGatewayListProvider(string clusterId, ILogger<MartenGatewayListProvider> logger, IDocumentStore store)
+    private readonly string _serviceId;
+    private readonly string _clusterId;
+
+    public MartenGatewayListProvider(ILogger<MartenGatewayListProvider> logger, IOptions<ClusterOptions> clusterOptions, IDocumentStore store)
     {
-        _clusterId = clusterId;
         _logger = logger;
         _store = store;
+
+        _serviceId = clusterOptions.Value.ServiceId;
+        _clusterId = clusterOptions.Value.ClusterId;
     }
 
     // ReSharper disable once UnassignedGetOnlyAutoProperty
