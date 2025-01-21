@@ -50,7 +50,13 @@ public class MartenGatewayListProvider : IGatewayListProvider
                 .Select(m => m.Entry)
                 .ToListAsync();
 
-            var results = members.Select(m => m.SiloAddress.ToGatewayUri()).ToList();
+            var results = members.Select(m =>
+            {
+                var gatewayAddress = SiloAddress.New(m.SiloAddress.Endpoint.Address,
+                    m.ProxyPort ?? m.SiloAddress.Endpoint.Port,
+                    m.SiloAddress.Generation);
+                return gatewayAddress.ToGatewayUri();
+            }).ToList();
 
             _logger.LogTraceListedGateways(_clusterId);
             return results;
