@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
-        <PackageReference Include="Microsoft.Orleans.Reminders" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Orleans.Reminders" Version="9.1.2" />
         <PackageReference Include="Riok.Mapperly" Version="4.1.1" PrivateAssets="all" />
     </ItemGroup>
 
