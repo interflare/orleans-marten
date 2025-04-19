@@ -14,9 +14,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: https://enduringtech.dev/actions/checkout-action@v4
+        uses: https://enduringtech.dev/actions/checkout-action@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up .NET
-        uses: https://enduringtech.dev/actions/setup-dotnet-action@v4
+        uses: https://enduringtech.dev/actions/setup-dotnet-action@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
         with:
           dotnet-version: 8.0.x
 
@@ -29,7 +29,7 @@ jobs:
         run: dotnet test --filter Unit.Tests --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
 
       - name: Upload artifacts
-        uses: https://enduringtech.dev/actions/upload-artifact-action@v4
+        uses: https://enduringtech.dev/actions/upload-artifact-action@16871d9e8cfcf27ff31822cac382bbb5450f1e1e # v4
         if: success() || failure()
         with:
           name: test-results

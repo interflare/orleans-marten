@@ -12,9 +12,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: https://enduringtech.dev/actions/checkout-action@v4
+        uses: https://enduringtech.dev/actions/checkout-action@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up .NET
-        uses: https://enduringtech.dev/actions/setup-dotnet-action@v4
+        uses: https://enduringtech.dev/actions/setup-dotnet-action@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
         with:
           dotnet-version: 8.0.x
 
@@ -28,7 +28,7 @@ jobs:
           dotnet nuget push --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json packages/*
 
       - name: Upload artifacts
-        uses: https://enduringtech.dev/actions/upload-artifact-action@v4
+        uses: https://enduringtech.dev/actions/upload-artifact-action@16871d9e8cfcf27ff31822cac382bbb5450f1e1e # v4
         with:
           name: packages
           path: packages/*
@@ -39,29 +39,29 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: https://enduringtech.dev/actions/checkout-action@v4
+        uses: https://enduringtech.dev/actions/checkout-action@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Download artifacts
-        uses: https://enduringtech.dev/actions/download-artifact-action@v4
+        uses: https://enduringtech.dev/actions/download-artifact-action@d8d0a99033603453ad2255e58720b460a0555e1e # v4
         with:
           name: packages
           path: packages
 
       - name: Generate changelog
         id: changelog
-        uses: https://enduringtech.dev/actions/changelog-action@v0.1.0
+        uses: https://enduringtech.dev/actions/changelog-action@3a3d44d35ba5e531a65472b3bfd89f998225044a # v0.1.0
         with:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
 
       - name: Create release
-        uses: https://enduringtech.dev/actions/release-action@v1.3.2
+        uses: https://enduringtech.dev/actions/release-action@f119011bd6c95ab53d2084ace7b539694ce9b252 # v1.3.2
         with:
           draft: true
           files: packages/*
           body: ${{ steps.changelog.outputs.changes }}
 
       - name: Commit changelog
-        uses: https://enduringtech.dev/actions/commit-action@v5.1.0
+        uses: https://enduringtech.dev/actions/commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5.1.0
         with:
           branch: main
           commit_message: 'docs: update changelog for ${{ github.ref_name }} [skip ci]'
