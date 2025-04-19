@@ -1,0 +1,72 @@
+name: release
+
+on:
+  push:
+    tags: [ "v*" ]
+
+jobs:
+  pack:
+    runs-on: docker
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: https://enduringtech.dev/actions/checkout-action@v4
+      - name: Setup .NET
+        uses: https://enduringtech.dev/actions/setup-dotnet-action@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Pack
+        run: |
+          VERSION=${{ github.ref_name }}
+          dotnet pack -c Release -o packages /p Version=${VERSION#v}
+      - name: Push
+        run: |
+          dotnet nuget push --skip-duplicate --api-key ${{ github.token }} --source https://nuget.pkg.github.com/interflare/index.json packages/*
+          dotnet nuget push --skip-duplicate --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json packages/*
+
+      - name: Upload artifacts
+        uses: https://enduringtech.dev/actions/upload-artifact-action@v4
+        with:
+          name: packages
+          path: packages/*
+
+  release:
+    runs-on: docker
+    needs: pack
+
+    steps:
+      - name: Checkout
+        uses: https://enduringtech.dev/actions/checkout-action@v4
+      - name: Download artifacts
+        uses: https://enduringtech.dev/actions/download-artifact-action@v4
+        with:
+          name: packages
+          path: packages
+
+      - name: Generate changelog
+        id: changelog
+        uses: https://enduringtech.dev/actions/changelog-action@v0.1.0
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+
+      - name: Create release
+        uses: https://enduringtech.dev/actions/release-action@v1.3.2
+        with:
+          draft: true
+          files: packages/*
+          body: ${{ steps.changelog.outputs.changes }}
+
+      - name: Commit changelog
+        uses: https://enduringtech.dev/actions/commit-action@v5.1.0
+        with:
+          branch: main
+          commit_message: 'docs: update changelog for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md
+          commit_user_name: forge[bot]
+          commit_user_email: forge.svc@enduringtech.dev
+          commit_author: ${{ github.actor }} <${{ github.actor }}@noreply.enduringtech.dev>
