@@ -7,14 +7,13 @@ on:
 jobs:
   pack:
     runs-on: docker
-    permissions:
-      packages: write
-      contents: read
+    env:
+      DOTNET_INSTALL_DIR: ~/.local/bin/dotnet
 
     steps:
       - name: Checkout
         uses: https://enduringtech.dev/actions/checkout-action@v4
-      - name: Setup .NET
+      - name: Set up .NET
         uses: https://enduringtech.dev/actions/setup-dotnet-action@v4
         with:
           dotnet-version: 8.0.x
