@@ -4,16 +4,12 @@
 [![NuGet version of Interflare.Orleans.Marten.Persistence](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Persistence?label=persistence)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Persistence/)
 [![NuGet version of Interflare.Orleans.Marten.Reminders](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Reminders?label=reminders)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Reminders/)   
 
-[![GitHub Actions status of CI workflow](https://img.shields.io/github/actions/workflow/status/interflare/orleans-marten/ci.yml?label=ci)](https://github.com/interflare/orleans-marten/actions/workflows/ci.yml)
-[![GitHub Actions status of CI workflow](https://img.shields.io/github/actions/workflow/status/interflare/orleans-marten/release.yml?label=release)](https://github.com/interflare/orleans-marten/actions/workflows/release.yml)
+[![Status of CI workflow](https://enduringtech.dev/interflare/orleans-marten/badges/workflows/ci.yml/badge.svg?label=ci)](https://enduringtech.dev/interflare/orleans-marten/actions?workflow=ci.yml)
+[![Status of release workflow](https://enduringtech.dev/interflare/orleans-marten/badges/workflows/release.yml/badge.svg?label=release)](https://enduringtech.dev/interflare/orleans-marten/actions?workflow=release.yml)
+[![Latest release version](https://enduringtech.dev/interflare/orleans-marten/badges/release.svg)](https://enduringtech.dev/interflare/orleans-marten/releases/latest)
 
 A [Marten](https://martendb.io/) implementation of [Orleans](https://docs.microsoft.com/dotnet/orleans) providers for **membership** (clustering), **state storage**, and **reminder
 storage**. It makes use of your existing Marten project configuration and database management, and has a slim setup that's easy to get started with.
-
-> [!TIP]   
-> Please tell us about your [usage](https://github.com/interflare/orleans-marten/discussions/categories/show-and-tell) and provide
-> any [feedback](https://github.com/interflare/orleans-marten/discussions/categories/ideas) or [bug reports](https://github.com/interflare/orleans-marten/issues/new?labels=bug) in
-> discussions and issues - it's greatly appreciated!
 
 ## Why this library
 
