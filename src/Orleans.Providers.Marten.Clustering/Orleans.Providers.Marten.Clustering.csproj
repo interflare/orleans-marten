@@ -9,7 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Marten" Version="7.35.2" />
         <PackageReference Include="Microsoft.Orleans.Runtime" Version="9.1.2" />
-        <PackageReference Include="Riok.Mapperly" Version="4.1.1" PrivateAssets="all" />
+        <PackageReference Include="Riok.Mapperly" Version="4.2.0" PrivateAssets="all" />
     </ItemGroup>
 
 </Project>
