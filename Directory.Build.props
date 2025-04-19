@@ -20,8 +20,8 @@
         <PackageIcon>icon.png</PackageIcon>
         <Copyright>© Interflare. All rights reserved.</Copyright>
         <PackageTags>orleans;orleans-providers;marten;postgresql</PackageTags>
-        <RepositoryUrl>https://github.com/interflare/orleans-marten</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/interflare/orleans-marten</PackageProjectUrl>
+        <RepositoryUrl>https://enduringtech.dev/interflare/orleans-marten</RepositoryUrl>
+        <PackageProjectUrl>https://enduringtech.dev/interflare/orleans-marten</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
