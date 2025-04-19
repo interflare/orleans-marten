@@ -19,6 +19,7 @@
         <Company>Interflare</Company>
         <PackageIcon>icon.png</PackageIcon>
         <Copyright>© Interflare. All rights reserved.</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>orleans;orleans-providers;marten;postgresql</PackageTags>
         <RepositoryUrl>https://enduringtech.dev/interflare/orleans-marten</RepositoryUrl>
         <PackageProjectUrl>https://enduringtech.dev/interflare/orleans-marten</PackageProjectUrl>
@@ -27,6 +28,7 @@
 
     <ItemGroup>
         <None Include="$(MSBuildThisFileDirectory)icon.png" Visible="false" Pack="true" PackagePath="\"/>
+        <None Include="$(MSBuildThisFileDirectory)README.md" Visible="false" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>
