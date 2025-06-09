@@ -1,3 +1,4 @@
+using JasperFx;
 using Marten;
 using Marten.Exceptions;
 using Marten.Patching;
@@ -208,7 +209,7 @@ public class MartenClusteringTable : IMembershipTable
             _logger.LogTraceUpdatedRow(_clusterId, entry.SiloAddress.ToParsableString(), etag, tableVersion.VersionEtag);
             return true;
         }
-        catch (ConcurrencyException e) when (e.DocType == nameof(OrleansClusterVersion))
+        catch (ConcurrencyException e)
         {
             if (e.DocType == nameof(OrleansClusterVersion)) _logger.LogErrorTableVersionETagMismatchUpdatingRow(e, _clusterId, entry.SiloAddress.ToParsableString(), etag, tableVersion.VersionEtag);
             if (e.DocType == nameof(OrleansMembership)) _logger.LogErrorMemberETagMismatchUpdatingRow(e, _clusterId, entry.SiloAddress.ToParsableString(), etag, tableVersion.VersionEtag);

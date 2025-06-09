@@ -30,8 +30,6 @@ public class MartenReminderTable : IReminderTable
 
     public async Task<ReminderTableData> ReadRows(GrainId grainId)
     {
-        ArgumentNullException.ThrowIfNull(grainId);
-
         await using var querySession = _store.QuerySession();
         try
         {
@@ -79,7 +77,6 @@ public class MartenReminderTable : IReminderTable
 
     public async Task<ReminderEntry> ReadRow(GrainId grainId, string reminderName)
     {
-        ArgumentNullException.ThrowIfNull(grainId);
         ArgumentException.ThrowIfNullOrWhiteSpace(reminderName);
 
         await using var querySession = _store.QuerySession();
@@ -149,7 +146,6 @@ public class MartenReminderTable : IReminderTable
 
     public async Task<bool> RemoveRow(GrainId grainId, string reminderName, string eTag)
     {
-        ArgumentNullException.ThrowIfNull(grainId);
         ArgumentException.ThrowIfNullOrWhiteSpace(reminderName);
         ArgumentException.ThrowIfNullOrWhiteSpace(eTag);
 

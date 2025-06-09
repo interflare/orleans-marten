@@ -1,5 +1,5 @@
+using JasperFx;
 using Marten;
-using Marten.Exceptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Orleans.Configuration;
@@ -33,7 +33,6 @@ public sealed class MartenGrainStorage : IGrainStorage
     public async Task ReadStateAsync<T>(string stateName, GrainId grainId, IGrainState<T> grainState)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
-        ArgumentNullException.ThrowIfNull(grainId);
 
         await using var querySession = _store.QuerySession();
         var documentId = GetDocumentId(stateName, grainId);
@@ -69,43 +68,36 @@ public sealed class MartenGrainStorage : IGrainStorage
     public async Task WriteStateAsync<T>(string stateName, GrainId grainId, IGrainState<T> grainState)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
-        ArgumentNullException.ThrowIfNull(grainId);
 
         await using var documentSession = _store.LightweightSession();
         var documentId = GetDocumentId(stateName, grainId);
-        Guid? documentETag = null;
         try
         {
             _logger.LogTraceWriting(stateName, grainId, grainState.ETag, documentId);
 
-            var exists = true;
-            var result = await documentSession.LoadAsync<OrleansState>(documentId);
-            if (result == null)
+            var state = new OrleansState
             {
-                _logger.LogTraceDocumentNotFoundWriting(stateName, grainId, grainState.ETag, documentId);
-                exists = false;
-                result = new OrleansState { Id = documentId, ServiceId = _serviceId, GrainId = grainId.ToString(), StateName = stateName };
-            }
-
-            documentETag = result.Version;
-            result = result with
-            {
+                Id = documentId,
+                ServiceId = _serviceId,
+                GrainId = grainId.ToString(),
+                StateName = stateName,
+                Version = grainState.ETag is not null ? Guid.Parse(grainState.ETag) : Guid.NewGuid(),
                 ProviderVersion = Constants.ProviderVersion,
                 Data = _serializer.Serialize(grainState.State).ToString()
             };
 
-            if (exists) documentSession.UpdateExpectedVersion(result, Guid.Parse(grainState.ETag));
-            else documentSession.Insert(result);
+            documentSession.Store(state);
             await documentSession.SaveChangesAsync();
 
-            grainState.ETag = result.Version.ToString();
+            grainState.ETag = state.Version.ToString();
             grainState.RecordExists = true;
 
             _logger.LogTraceWritten(stateName, grainId, grainState.ETag, documentId);
         }
-        catch (ConcurrencyException e)
+        catch (ConcurrencyException)
         {
-            throw new InconsistentStateException(documentETag?.ToString(), grainState.ETag, e);
+            throw new InconsistentStateException(
+                $"Version conflict ({nameof(WriteStateAsync)}): ServiceId={_serviceId} ProviderName=Marten GrainType={stateName} GrainId={grainId} ETag={grainState.ETag}.");
         }
         catch (Exception e)
         {
@@ -117,7 +109,6 @@ public sealed class MartenGrainStorage : IGrainStorage
     public async Task ClearStateAsync<T>(string stateName, GrainId grainId, IGrainState<T> grainState)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(stateName);
-        ArgumentNullException.ThrowIfNull(grainId);
 
         await using var documentSession = _store.LightweightSession();
         var documentId = GetDocumentId(stateName, grainId);
