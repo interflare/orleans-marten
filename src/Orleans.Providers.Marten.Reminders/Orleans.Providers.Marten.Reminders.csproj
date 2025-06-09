@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Marten" Version="7.40.3" />
+        <PackageReference Include="Marten" Version="8.0.0" />
         <PackageReference Include="Microsoft.Orleans.Reminders" Version="9.1.2" />
         <PackageReference Include="Riok.Mapperly" Version="4.2.1" PrivateAssets="all" />
     </ItemGroup>
