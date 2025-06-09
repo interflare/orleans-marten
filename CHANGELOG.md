@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.5] - 2025-06-09
+### :sparkles: New features
+- [`77c3d4a`](https://enduringtech.dev/interflare/orleans-marten/commit/77c3d4a30bc694a277c39f4b381561ea9f527c50) - use .net 9, marten 8, optimistic concurrency for grain write *(PR [#28](https://enduringtech.dev/interflare/orleans-marten/pull/28) by [@tskimmett](https://enduringtech.dev/tskimmett))*
+
+### :wrench: Chores
+- [`83c5ebf`](https://enduringtech.dev/interflare/orleans-marten/commit/83c5ebf4879284a3cc42b76868f1cf4127235715) - *deps*: update dependency marten to 8.0.0 *(commit by [@matt](https://enduringtech.dev/matt))*
+- [`3392aa8`](https://enduringtech.dev/interflare/orleans-marten/commit/3392aa854ff3c965bf4c25adb8bb19e711721629) - *deps*: update dependency microsoft.aspnetcore.mvc.testing to 8.0.16 *(PR [#27](https://enduringtech.dev/interflare/orleans-marten/pull/27) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`0fe8d87`](https://enduringtech.dev/interflare/orleans-marten/commit/0fe8d87e641f89d5e1e50f62b9f9ddc7b10f68e7) - *deps*: update dependency marten to 7.40.3 *(PR [#26](https://enduringtech.dev/interflare/orleans-marten/pull/26) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`770769e`](https://enduringtech.dev/interflare/orleans-marten/commit/770769eec378296efafbea5f22ac50f22dc2b8a7) - *deps*: update dependency xunit.runner.visualstudio to 3.1.0 *(PR [#25](https://enduringtech.dev/interflare/orleans-marten/pull/25) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`aebb77b`](https://enduringtech.dev/interflare/orleans-marten/commit/aebb77b176380d7bf07cc915890a28a2ff286252) - *deps*: update dependency marten to 7.40.1 *(PR [#24](https://enduringtech.dev/interflare/orleans-marten/pull/24) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`0165622`](https://enduringtech.dev/interflare/orleans-marten/commit/0165622ba24ba021100d8c0c9ddf744e181cc8b9) - *deps*: update dependency riok.mapperly to 4.2.1 *(PR [#23](https://enduringtech.dev/interflare/orleans-marten/pull/23) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`1c4b4fa`](https://enduringtech.dev/interflare/orleans-marten/commit/1c4b4fa192155e9f7402d477cfa3f639cbed2706) - *deps*: update https://enduringtech.dev/actions/commit-action action to v5.2.0 *(PR [#22](https://enduringtech.dev/interflare/orleans-marten/pull/22) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+- [`a632360`](https://enduringtech.dev/interflare/orleans-marten/commit/a632360d1be21364540986ab8c362d54420a57bb) - *deps*: update dependency marten to 7.40.0 *(PR [#21](https://enduringtech.dev/interflare/orleans-marten/pull/21) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
+
+
 ## [v0.0.4] - 2025-04-19
 ### :wrench: Chores
 - [`ee5ec6c`](https://enduringtech.dev/interflare/orleans-marten/commit/ee5ec6c9352a8db9582ce8382ec76a476cff60fc) - *deps*: update dependency marten to 7.39.6 *(PR [#17](https://enduringtech.dev/interflare/orleans-marten/pull/17) by [@renovate.svc](https://enduringtech.dev/renovate.svc))*
@@ -38,3 +53,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.2]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.1...v0.0.2
 [v0.0.3]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.2...v0.0.3
 [v0.0.4]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.3...v0.0.4
+[v0.0.5]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.4...v0.0.5
