@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.6] - 2025-06-09
+### :bug: Bug fixes
+- [`f5efb6d`](https://enduringtech.dev/interflare/orleans-marten/commit/f5efb6de1bb8cc88dbd58dca8c87c93bf6002eb6) - accidentally dropped support for .net 8 *(commit by [@matt](https://enduringtech.dev/matt))*
+
+
 ## [v0.0.5] - 2025-06-09
 ### :sparkles: New features
 - [`77c3d4a`](https://enduringtech.dev/interflare/orleans-marten/commit/77c3d4a30bc694a277c39f4b381561ea9f527c50) - use .net 9, marten 8, optimistic concurrency for grain write *(PR [#28](https://enduringtech.dev/interflare/orleans-marten/pull/28) by [@tskimmett](https://enduringtech.dev/tskimmett))*
@@ -54,3 +59,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.3]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.2...v0.0.3
 [v0.0.4]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.3...v0.0.4
 [v0.0.5]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.4...v0.0.5
+[v0.0.6]: https://enduringtech.dev/interflare/orleans-marten/compare/v0.0.5...v0.0.6
