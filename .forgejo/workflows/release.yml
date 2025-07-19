@@ -54,7 +54,7 @@ jobs:
           tag: ${{ github.ref_name }}
 
       - name: Create release
-        uses: https://enduringtech.dev/actions/release-action@f119011bd6c95ab53d2084ace7b539694ce9b252 # v1.3.2
+        uses: https://enduringtech.dev/actions/release-action@f66c1c98f12e032443e806fae4882a05368df40c # v1.3.4
         with:
           draft: true
           files: packages/*
