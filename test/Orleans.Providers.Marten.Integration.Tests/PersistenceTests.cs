@@ -1,30 +1,58 @@
 using JasperFx;
+using Marten;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Orleans.Configuration;
 using Orleans.Providers.Marten.Integration.Tests.Infrastructure.Fixtures;
 using Orleans.Providers.Marten.Integration.Tests.TestGrains;
+using Orleans.Providers.Marten.Integration.Tests.TestHelpers;
 using Orleans.Providers.Marten.Persistence.Documents;
 using Orleans.Storage;
 using System.Text.Json;
 
 namespace Orleans.Providers.Marten.Integration.Tests;
 
-public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixture>
+public class PersistenceTests : IClassFixture<PostgresDatabaseFixture>, IAsyncLifetime
 {
-    private readonly MartenStatePersistedSiloHostFixture _siloHostFixture;
+    private readonly PostgresDatabaseFixture _databaseFixture;
+    private IHost _host = null!;
 
-    public PersistenceTests(MartenStatePersistedSiloHostFixture siloHostFixture)
+    public PersistenceTests(PostgresDatabaseFixture databaseFixture)
     {
-        _siloHostFixture = siloHostFixture;
+        _databaseFixture = databaseFixture;
     }
+
+    private IGrainFactory GrainFactory => _host.Services.GetRequiredService<IGrainFactory>();
+    private IDocumentStore DocumentStore => _host.Services.GetRequiredService<IDocumentStore>();
+
+    public async Task InitializeAsync()
+    {
+        await _databaseFixture.WaitUntilCanConnect();
+
+        var hostBuilder = Host.CreateDefaultBuilder()
+            .ConfigureServices(services =>
+            {
+                services.AddMarten(options => options.Connection(_databaseFixture.ConnectionString))
+                    .UseLightweightSessions();
+            })
+            .UseOrleans(siloBuilder => siloBuilder
+                .UseLocalhostClustering()
+                .AddMartenGrainStorageAsDefault());
+
+        _host = hostBuilder.Build();
+        await _host.StartAsync();
+    }
+
+    public async Task DisposeAsync() => await _host.StopAsync();
 
     [Fact]
     public async Task StatePersistenceReadWrite()
     {
         // Arrange
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
-        var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
+        var grain = GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = DocumentStore.LightweightSession();
 
         // Act
         await grain.SetUrl("https://example.com");
@@ -49,9 +77,9 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
     {
         // Arrange
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
-        var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
+        var grain = GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");
@@ -70,9 +98,9 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
     {
         // Arrange
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
-        var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
+        var grain = GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");
@@ -80,7 +108,6 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.NotNull(document);
 
-        var documentETag = document.Version.ToString();
         document = document with { Data = string.Empty };
         documentSession.Update(document);
         await documentSession.SaveChangesAsync();
@@ -93,9 +120,9 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
     {
         // Arrange
         var shortUrl = Guid.NewGuid().GetHashCode().ToString("x");
-        var grain = _siloHostFixture.GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
+        var grain = GrainFactory.GetGrain<IUrlShortenerGrain>(shortUrl);
 
-        await using var documentSession = _siloHostFixture.DocumentStore.LightweightSession();
+        await using var documentSession = DocumentStore.LightweightSession();
 
         // Act & Assert
         await grain.SetUrl("https://example.com");
@@ -103,7 +130,6 @@ public class PersistenceTests : IClassFixture<MartenStatePersistedSiloHostFixtur
         var document = await documentSession.LoadAsync<OrleansState>($"{ClusterOptions.DefaultServiceId}-url-{grain.GetGrainId()}");
         Assert.NotNull(document);
 
-        var documentETag = document.Version.ToString();
         document = document with { Data = string.Empty };
         documentSession.Update(document);
         await documentSession.SaveChangesAsync();

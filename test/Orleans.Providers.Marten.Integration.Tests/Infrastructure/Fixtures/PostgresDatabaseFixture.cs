@@ -12,28 +12,24 @@ namespace Orleans.Providers.Marten.Integration.Tests.Infrastructure.Fixtures;
 [ExcludeFromCodeCoverage]
 public class PostgresDatabaseFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _postgresContainer;
-    public readonly string ConnectionString;
+    private PostgreSqlContainer? _postgresContainer;
+    public string ConnectionString { get; private set; } = null!;
 
-    private PostgresDatabaseFixture(PostgreSqlContainer postgresContainer)
+    public async Task InitializeAsync()
     {
-        _postgresContainer = postgresContainer;
-        ConnectionString = postgresContainer.GetConnectionString();
-    }
-
-    internal static async Task<PostgresDatabaseFixture> CreateAsync(string name, CancellationToken token = default)
-    {
-        var postgresContainer = new PostgreSqlBuilder()
+        var name = $"marten-integration-test-db--{Guid.NewGuid()}";
+        _postgresContainer = new PostgreSqlBuilder()
             .WithImage("postgres:16")
             .WithName(name)
             .WithPortBinding(5432, true)
             .Build();
 
-        await postgresContainer.StartAsync(token);
-
-        return new PostgresDatabaseFixture(postgresContainer);
+        await _postgresContainer.StartAsync();
+        ConnectionString = _postgresContainer.GetConnectionString();
     }
 
-    public Task InitializeAsync() => Task.CompletedTask;
-    public Task DisposeAsync() => _postgresContainer.DisposeAsync().AsTask();
+    public async Task DisposeAsync()
+    {
+        if (_postgresContainer != null) await _postgresContainer.DisposeAsync();
+    }
 }
