@@ -37,11 +37,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.39">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25">
+        <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.39">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
