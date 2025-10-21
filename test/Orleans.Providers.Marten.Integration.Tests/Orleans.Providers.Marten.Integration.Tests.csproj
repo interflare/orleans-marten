@@ -27,9 +27,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\src\Orleans.Providers.Marten.Clustering\Orleans.Providers.Marten.Clustering.csproj" />
-        <ProjectReference Include="..\..\..\src\Orleans.Providers.Marten.Persistence\Orleans.Providers.Marten.Persistence.csproj" />
-        <ProjectReference Include="..\..\..\src\Orleans.Providers.Marten.Reminders\Orleans.Providers.Marten.Reminders.csproj" />
+        <ProjectReference Include="..\..\src\Orleans.Providers.Marten.Clustering\Orleans.Providers.Marten.Clustering.csproj" />
+        <ProjectReference Include="..\..\src\Orleans.Providers.Marten.Persistence\Orleans.Providers.Marten.Persistence.csproj" />
+        <ProjectReference Include="..\..\src\Orleans.Providers.Marten.Reminders\Orleans.Providers.Marten.Reminders.csproj" />
     </ItemGroup>
 
 </Project>

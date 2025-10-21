@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1098941A-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{453686D4-2354-408C-BDFF-8DF7FB9EBF75}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{5BEA42ED-0073-4057-B829-2F50D2A99CB7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Clustering", "src\Orleans.Providers.Marten.Clustering\Orleans.Providers.Marten.Clustering.csproj", "{7164D0AD-AB08-412D-ACCB-F1C8E004826B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Persistence", "src\Orleans.Providers.Marten.Persistence\Orleans.Providers.Marten.Persistence.csproj", "{965E4954-8C52-4090-873F-A12EB7ADF561}"
@@ -34,9 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Pe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Reminders.Unit.Tests", "test\unit\Orleans.Providers.Marten.Reminders.Unit.Tests\Orleans.Providers.Marten.Reminders.Unit.Tests.csproj", "{7ED417A5-1BDB-4C84-B198-1A144CE612DC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmark", "benchmark", "{455A8622-DC13-4A7C-AAE2-38502676AE5C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Integration.Tests", "test\integration\Orleans.Providers.Marten.Integration.Tests\Orleans.Providers.Marten.Integration.Tests.csproj", "{30FFA047-0458-4A31-BFD1-EF6CA859326C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Providers.Marten.Integration.Tests", "test\Orleans.Providers.Marten.Integration.Tests\Orleans.Providers.Marten.Integration.Tests.csproj", "{58265798-4CFA-4613-8376-33B48BC940EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,15 +44,13 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{453686D4-2354-408C-BDFF-8DF7FB9EBF75} = {1098941A-E20A-4013-BA6C-2F4A2C6F6AFE}
-		{5BEA42ED-0073-4057-B829-2F50D2A99CB7} = {1098941A-E20A-4013-BA6C-2F4A2C6F6AFE}
 		{7164D0AD-AB08-412D-ACCB-F1C8E004826B} = {38743F92-71A7-47A5-88F1-35458B4576FB}
 		{965E4954-8C52-4090-873F-A12EB7ADF561} = {38743F92-71A7-47A5-88F1-35458B4576FB}
 		{1FDDD634-7C18-4CB4-9595-295FFA00F5D6} = {38743F92-71A7-47A5-88F1-35458B4576FB}
 		{A61A30E5-8686-4F80-B01F-1DA300A84FC8} = {453686D4-2354-408C-BDFF-8DF7FB9EBF75}
 		{D455B8FE-AB10-464F-B8D1-ED79FE4BEA9A} = {453686D4-2354-408C-BDFF-8DF7FB9EBF75}
 		{7ED417A5-1BDB-4C84-B198-1A144CE612DC} = {453686D4-2354-408C-BDFF-8DF7FB9EBF75}
-		{455A8622-DC13-4A7C-AAE2-38502676AE5C} = {1098941A-E20A-4013-BA6C-2F4A2C6F6AFE}
-		{30FFA047-0458-4A31-BFD1-EF6CA859326C} = {5BEA42ED-0073-4057-B829-2F50D2A99CB7}
+		{58265798-4CFA-4613-8376-33B48BC940EF} = {1098941A-E20A-4013-BA6C-2F4A2C6F6AFE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7164D0AD-AB08-412D-ACCB-F1C8E004826B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -83,9 +77,9 @@ Global
 		{7ED417A5-1BDB-4C84-B198-1A144CE612DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED417A5-1BDB-4C84-B198-1A144CE612DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED417A5-1BDB-4C84-B198-1A144CE612DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30FFA047-0458-4A31-BFD1-EF6CA859326C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30FFA047-0458-4A31-BFD1-EF6CA859326C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30FFA047-0458-4A31-BFD1-EF6CA859326C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30FFA047-0458-4A31-BFD1-EF6CA859326C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58265798-4CFA-4613-8376-33B48BC940EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58265798-4CFA-4613-8376-33B48BC940EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58265798-4CFA-4613-8376-33B48BC940EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58265798-4CFA-4613-8376-33B48BC940EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
