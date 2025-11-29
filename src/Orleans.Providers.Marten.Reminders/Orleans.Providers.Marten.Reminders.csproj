@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <PackageId>Interflare.Orleans.Marten.Reminders</PackageId>
         <Title>Interflare Orleans Marten Reminder Provider</Title>
         <Description>Orleans storage provider library to persist reminders in Marten, a transactional document database library for PostgreSQL</Description>
