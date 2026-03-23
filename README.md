@@ -1,12 +1,12 @@
 # Orleans Marten providers
 
-[![NuGet version of Interflare.Orleans.Marten.Clustering](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Clustering?label=clustering)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Clustering/)
-[![NuGet version of Interflare.Orleans.Marten.Persistence](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Persistence?label=persistence)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Persistence/)
-[![NuGet version of Interflare.Orleans.Marten.Reminders](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Reminders?label=reminders)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Reminders/)   
+[![NuGet version of Interflare.Orleans.Marten.Clustering](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Clustering?label=Clustering)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Clustering/)
+[![NuGet version of Interflare.Orleans.Marten.Persistence](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Persistence?label=Persistence)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Persistence/)
+[![NuGet version of Interflare.Orleans.Marten.Reminders](https://img.shields.io/nuget/v/Interflare.Orleans.Marten.Reminders?label=Reminders)](https://www.nuget.org/packages/Interflare.Orleans.Marten.Reminders/)   
 
-[![Status of CI workflow](https://enduringtech.dev/interflare/orleans-marten/badges/workflows/ci.yml/badge.svg?label=ci)](https://enduringtech.dev/interflare/orleans-marten/actions?workflow=ci.yml)
-[![Status of release workflow](https://enduringtech.dev/interflare/orleans-marten/badges/workflows/release.yml/badge.svg?label=release)](https://enduringtech.dev/interflare/orleans-marten/actions?workflow=release.yml)
-[![Latest release version](https://enduringtech.dev/interflare/orleans-marten/badges/release.svg)](https://enduringtech.dev/interflare/orleans-marten/releases/latest)
+[![Status of CI workflow](https://github.com/interflare/orleans-marten/actions/workflows/ci.yml/badge.svg)](https://github.com/interflare/orleans-marten/actions/workflows/ci.yml)
+[![Status of Release workflow](https://github.com/interflare/orleans-marten/actions/workflows/release.yml/badge.svg)](https://github.com/interflare/orleans-marten/actions/workflows/release.yml)
+[![Latest release version](https://img.shields.io/github/v/release/interflare/orleans-marten?label=Latest)](https://github.com/interflare/orleans-marten/releases/latest)
 
 A [Marten](https://martendb.io/) implementation of [Orleans](https://docs.microsoft.com/dotnet/orleans) providers for **membership** (clustering), **state storage**, and **reminder
 storage**. It makes use of your existing Marten project configuration and database management, and has a slim setup that's easy to get started with.
