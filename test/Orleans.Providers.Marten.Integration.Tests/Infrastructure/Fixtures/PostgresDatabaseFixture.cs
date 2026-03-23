@@ -17,12 +17,7 @@ public class PostgresDatabaseFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        var name = $"marten-integration-test-db--{Guid.NewGuid()}";
-        _postgresContainer = new PostgreSqlBuilder()
-            .WithImage("postgres:16")
-            .WithName(name)
-            .WithPortBinding(5432, true)
-            .Build();
+        _postgresContainer = new PostgreSqlBuilder("postgres:16").Build();
 
         await _postgresContainer.StartAsync();
         ConnectionString = _postgresContainer.GetConnectionString();
