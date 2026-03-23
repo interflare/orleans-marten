@@ -29,10 +29,10 @@ jobs:
         run: dotnet build -c Release --no-restore
 
       - name: Run unit tests
-        run: dotnet test --filter Unit.Tests --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
+        run: dotnet test --filter "FullyQualifiedName~Unit.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
 
       - name: Run integration tests
-        run: dotnet test --filter Integration.Tests --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
+        run: dotnet test --filter "FullyQualifiedName~Integration.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
 
       - name: Report test results
         uses: dorny/test-reporter@v1
