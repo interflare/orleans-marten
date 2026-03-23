@@ -8,15 +8,15 @@ on:
 
 jobs:
   build:
-    runs-on: docker
-    env:
-      DOTNET_INSTALL_DIR: ~/.local/bin/dotnet
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       - name: Checkout
-        uses: https://enduringtech.dev/actions/checkout-action@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+        uses: actions/checkout@v4
       - name: Set up .NET
-        uses: https://enduringtech.dev/actions/setup-dotnet-action@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: | # multiple versions needed for testing
             10.0.x
@@ -31,9 +31,13 @@ jobs:
       - name: Run unit tests
         run: dotnet test --filter Unit.Tests --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
 
-      - name: Upload artifacts
-        uses: https://enduringtech.dev/actions/upload-artifact-action@16871d9e8cfcf27ff31822cac382bbb5450f1e1e # v4
+      - name: Run integration tests
+        run: dotnet test --filter Integration.Tests --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
+
+      - name: Report test results
+        uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: test-results
+          name: test results
           path: '**/*.trx'
+          reporter: dotnet-trx
