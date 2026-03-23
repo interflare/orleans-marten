@@ -1,4 +1,4 @@
-name: release
+name: "Release"
 
 on:
   push:
@@ -20,9 +20,10 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Pack
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
-          VERSION=${{ github.ref_name }}
-          dotnet pack -c Release -o packages /p:Version=${VERSION#v}
+          dotnet pack -c Release -o packages /p:Version=${TAG#v}
       - name: Push
         run: |
           dotnet nuget push --skip-duplicate --api-key ${{ github.token }} --source https://nuget.pkg.github.com/interflare/index.json packages/*

@@ -1,4 +1,4 @@
-name: ci
+name: "CI"
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      checks: write
+      contents: read
 
     steps:
       - name: Checkout
@@ -29,15 +29,15 @@ jobs:
         run: dotnet build -c Release --no-restore
 
       - name: Run unit tests
-        run: dotnet test --filter "FullyQualifiedName~Unit.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
+        run: dotnet test --filter "FullyQualifiedName~Unit.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage" --results-directory TestResults
 
       - name: Run integration tests
-        run: dotnet test --filter "FullyQualifiedName~Integration.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage"
+        if: ${{ !cancelled() }}
+        run: dotnet test --filter "FullyQualifiedName~Integration.Tests" --no-build -c Release --logger "console;verbosity=detailed" --logger trx --collect:"XPlat Code Coverage" --results-directory TestResults
 
-      - name: Report test results
-        uses: dorny/test-reporter@v3
-        if: success() || failure()
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
-          name: test results
-          path: '**/*.trx'
-          reporter: dotnet-trx
+          name: test-results
+          path: TestResults/*.trx
